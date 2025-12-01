@@ -5,9 +5,15 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "lint": "echo 'No linting configured'",
+    "test": "echo 'No tests configured'"
   },
-  "keywords": ["user", "auth", "microservice"],
+  "keywords": [
+    "user",
+    "auth",
+    "microservice"
+  ],
   "author": "",
   "license": "MIT",
   "dependencies": {
