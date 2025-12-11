@@ -14,6 +14,12 @@ const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://admin:password123@mong
 app.use(cors());
 app.use(express.json());
 
+// Request logging
+app.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
+  next();
+});
+
 // User Schema
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
@@ -33,8 +39,8 @@ mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
-.then(() => console.log('Connected to MongoDB'))
-.catch(err => console.error('MongoDB connection error:', err));
+  .then(() => console.log('Connected to MongoDB'))
+  .catch(err => console.error('MongoDB connection error:', err));
 
 // Auth Middleware
 const authenticateToken = (req, res, next) => {
@@ -184,7 +190,7 @@ app.put('/api/users/profile', authenticateToken, async (req, res) => {
       { firstName, lastName, phone, email },
       { new: true }
     ).select('-password');
-    
+
     res.json({ message: 'Profile updated successfully', user });
   } catch (error) {
     console.error('Update error:', error);
