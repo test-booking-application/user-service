@@ -25,6 +25,8 @@ Create a default fully qualified app name.
 Common labels
 */}}
 {{- define "user-service.labels" -}}
+app: {{ include "user-service.name" . }}
+version: {{ .Chart.AppVersion | default "v1" | quote }}
 helm.sh/chart: {{ include "user-service.chart" . }}
 {{ include "user-service.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
